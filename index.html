@@ -24,7 +24,6 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--whi
 .screen{display:none}
 .screen.active{display:block}
 
-/* LOGIN */
 #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .login-wrap{width:100%;max-width:420px;animation:fadeUp .5s ease}
 .login-logo{text-align:center;margin-bottom:32px}
@@ -45,7 +44,6 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--whi
 .login-hint{text-align:center;margin-top:14px;font-size:.72rem;color:var(--g3);font-family:'IBM Plex Mono',monospace}
 .config-warn{background:rgba(217,64,64,0.12);border:1px solid rgba(217,64,64,0.35);border-radius:5px;padding:10px 14px;font-size:.75rem;color:#ffb3b3;margin-bottom:18px;line-height:1.5}
 
-/* TOPBAR */
 .topbar{background:linear-gradient(90deg,var(--bg2),var(--bg3));border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;gap:16px;height:58px;position:sticky;top:0;z-index:100}
 .topbar-logo{display:flex;align-items:center;gap:10px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
 .topbar-logo span{font-size:1.4rem}
@@ -55,7 +53,6 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--whi
 .btn-logout{background:transparent;border:1px solid rgba(255,255,255,0.12);border-radius:4px;color:var(--g2);font-size:.72rem;font-family:'Rajdhani',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:all .2s}
 .btn-logout:hover{border-color:var(--danger);color:var(--danger)}
 
-/* LAYOUT */
 .app-layout{display:flex;min-height:calc(100vh - 58px)}
 .sidebar{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);padding:20px 0}
 .sidebar-item{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:.78rem;font-weight:500;letter-spacing:.06em;color:var(--g2);cursor:pointer;transition:all .18s;border-left:3px solid transparent}
@@ -174,7 +171,6 @@ tbody td{padding:10px 14px;color:var(--g1)}
 .ficha-grad{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.08em;color:var(--gold2)}
 .ficha-guerra{font-size:.9rem;color:var(--g1)}
 
-/* LOADING */
 #loadingOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center}
 .spinner{width:48px;height:48px;border:4px solid rgba(201,168,76,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -193,7 +189,6 @@ tbody td{padding:10px 14px;color:var(--g1)}
 </head>
 <body>
 
-<!-- LOADING -->
 <div id="loadingOverlay">
   <div>
     <div class="spinner"></div>
@@ -201,7 +196,6 @@ tbody td{padding:10px 14px;color:var(--g1)}
   </div>
 </div>
 
-<!-- LOGIN -->
 <div id="loginScreen" class="screen active">
   <div class="login-wrap">
     <div class="login-logo">
@@ -216,7 +210,7 @@ tbody td{padding:10px 14px;color:var(--g1)}
       </div>
       <div class="login-body">
         <div id="configWarn" class="config-warn" style="display:none">
-          ⚠️ <strong>Sistema não configurado.</strong> O administrador precisa colar o URL do Apps Script no código (constante <code>SCRIPT_URL</code> no topo do &lt;script&gt;).
+          ⚠️ <strong>Sistema não configurado.</strong> O administrador precisa colar o URL do Apps Script no código.
         </div>
         <div id="tabMilitar">
           <div class="lfield">
@@ -246,7 +240,6 @@ tbody td{padding:10px 14px;color:var(--g1)}
   </div>
 </div>
 
-<!-- ADMIN -->
 <div id="adminScreen" class="screen">
   <div class="topbar">
     <div class="topbar-logo"><span>✈</span> SIGE · FAB</div>
@@ -268,7 +261,6 @@ tbody td{padding:10px 14px;color:var(--g1)}
   </div>
 </div>
 
-<!-- MILITAR -->
 <div id="militarScreen" class="screen">
   <div class="topbar">
     <div class="topbar-logo"><span>✈</span> SIGE · FAB</div>
@@ -287,7 +279,6 @@ tbody td{padding:10px 14px;color:var(--g1)}
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="fichaModal">
   <div class="modal">
     <div class="modal-header">
@@ -300,25 +291,29 @@ tbody td{padding:10px 14px;color:var(--g1)}
 
 <script>
 /* ════════════════════════════════════════════════════════════
-   🔧 CONFIGURAÇÃO — cole aqui o URL do seu Google Apps Script
+   🔧 CONFIGURAÇÃO — URL do Google Apps Script
 ═══════════════════════════════════════════════════════════════ */
 const CONFIG = {
-  SCRIPT_URL: AKfycbyjpUNe6VVVbM8bdvbO6wvq2ue8PBbqYDsg7FivFcDhL-jvRzaF8ClPeKDUCDA2fFySSQ
+  SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyjpUNe6VVVbM8bdvbO6wvq2ue8PBbqYDsg7FivFcDhL-jvRzaF8ClPeKDUCDA2fFySSQ/exec'
 };
 /* ════════════════════════════════════════════════════════════ */
 
 const DB = { militares: [], currentUser: null, currentRole: null, adminKey: null };
 let currentMilStep = 1;
 
-const USE_BACKEND = CONFIG.SCRIPT_URL && CONFIG.SCRIPT_URL.startsWith('https://');
+function isConfigured() {
+  return !!(CONFIG && CONFIG.SCRIPT_URL && CONFIG.SCRIPT_URL.indexOf('https://') === 0);
+}
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (!USE_BACKEND) document.getElementById('configWarn').style.display = 'block';
+window.addEventListener('DOMContentLoaded', function() {
+  if (!isConfigured()) {
+    var warn = document.getElementById('configWarn');
+    if (warn) warn.style.display = 'block';
+  }
 });
 
-/* ────────── API ────────── */
 async function callAPI(payload) {
-  if (!USE_BACKEND) throw new Error('Configure SCRIPT_URL no código.');
+  if (!isConfigured()) throw new Error('SCRIPT_URL não configurado no código.');
   const res = await fetch(CONFIG.SCRIPT_URL, {
     method: 'POST',
     body: JSON.stringify(payload),
@@ -327,13 +322,12 @@ async function callAPI(payload) {
   return await res.json();
 }
 
-function showLoading(text = 'Carregando…') {
-  document.getElementById('loadingText').textContent = text;
+function showLoading(text) {
+  document.getElementById('loadingText').textContent = text || 'Carregando…';
   document.getElementById('loadingOverlay').style.display = 'flex';
 }
 function hideLoading() { document.getElementById('loadingOverlay').style.display = 'none'; }
 
-/* ────────── LOGIN ────────── */
 function switchLoginTab(tab) {
   document.querySelectorAll('.ltab').forEach((t,i)=>t.classList.toggle('active',i===(tab==='admin'?1:0)));
   document.getElementById('tabMilitar').style.display = tab==='militar'?'block':'none';
@@ -391,7 +385,6 @@ function switchScreen(id){
   document.getElementById(id).classList.add('active');
 }
 
-/* ────────── ADMIN NAV ────────── */
 async function adminNav(page, el) {
   document.querySelectorAll('#adminScreen .sidebar-item').forEach(i=>i.classList.remove('active'));
   if (el) el.classList.add('active');
@@ -418,7 +411,6 @@ function milNav(page, el) {
   else if (page==='cadastro') { c.innerHTML = renderCadastroForm(); currentMilStep=1; showMilStep(1); setTimeout(prefillForm, 50); }
 }
 
-/* ────────── ADMIN PAGES ────────── */
 function renderDashboard(){
   const tot = DB.militares.length;
   const comp = DB.militares.filter(m=>m.status==='completo').length;
@@ -562,8 +554,11 @@ function renderRelatorios(){
 }
 
 function runRelatorio(){
-  const campo = document.getElementById('relCampo')?.value || 'all';
-  const valor = (document.getElementById('relValor')?.value || '').toLowerCase();
+  const campoEl = document.getElementById('relCampo');
+  const valorEl = document.getElementById('relValor');
+  if (!campoEl) return;
+  const campo = campoEl.value || 'all';
+  const valor = (valorEl ? valorEl.value : '').toLowerCase();
   const filtered = DB.militares.filter(m=>{
     if (campo==='all') return !valor || JSON.stringify(m).toLowerCase().includes(valor);
     return !valor || String(m[campo]||'').toLowerCase().includes(valor);
@@ -591,9 +586,9 @@ function exportCSV(){
   const h = ['SARAM','Graduação','Nome de Guerra','Nome Completo','CPF','Nascimento','Email','Turma','Turno EPA','Telefone','Endereço','Bairro','CEP','Emergência','Tel.Emergência','Parentesco','CNH','URL CNH','Pai','Mãe','Status','Timestamp'];
   const rows = DB.militares.map(m=>[
     m.saram,m.graduacao,m.nomeGuerra,m.nomeCompleto,m.cpf,m.dataNasc,m.email,m.turma,m.turnoEPA,
-    m.telefone,`${m.rua||''} ${m.numero||''}`,m.bairro,m.cep,m.emergNome,m.emergTel,m.emergParent,
+    m.telefone,(m.rua||'')+' '+(m.numero||''),m.bairro,m.cep,m.emergNome,m.emergTel,m.emergParent,
     m.cnhCategoria,m.cnhFileUrl,m.nomePai,m.nomeMae,m.status,m.timestamp
-  ].map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(','));
+  ].map(v=>'"'+(v||'').toString().replace(/"/g,'""')+'"').join(','));
   const csv = '\uFEFF' + [h.join(','),...rows].join('\n');
   const a = document.createElement('a');
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
@@ -601,11 +596,10 @@ function exportCSV(){
   a.click();
 }
 
-/* ────────── FICHA MODAL ────────── */
 function openFicha(saram){
   const m = DB.militares.find(x=>String(x.saram)===String(saram));
   if (!m) return;
-  document.getElementById('fichaModalTitle').textContent = `Ficha — ${m.nomeGuerra||m.saram}`;
+  document.getElementById('fichaModalTitle').textContent = 'Ficha — ' + (m.nomeGuerra||m.saram);
   document.getElementById('fichaModalBody').innerHTML = `
     <div class="ficha-badge">
       <span style="font-size:1.5rem">🎖</span>
@@ -636,13 +630,13 @@ function openFicha(saram){
       <div class="ficha-row">
         <div class="ficha-item full"><label>Endereço</label><span>${m.rua?`${m.rua}, ${m.numero||''} — ${m.bairro||''} — CEP ${m.cep||''}`:'—'}</span></div>
         <div class="ficha-item"><label>Telefone</label><span>${m.telefone||'—'}</span></div>
-        <div class="ficha-item"><label>Emergência</label><span>${m.emergNome||'—'} ${m.emergTel?`(${m.emergTel})`:''}${m.emergParent?' — '+m.emergParent:''}</span></div>
+        <div class="ficha-item"><label>Emergência</label><span>${m.emergNome||'—'} ${m.emergTel?'('+m.emergTel+')':''}${m.emergParent?' — '+m.emergParent:''}</span></div>
       </div>
     </div>
     <div class="ficha-section"><div class="ficha-section-title">Documentação</div>
       <div class="ficha-row">
         <div class="ficha-item"><label>Categoria CNH</label><span>${m.cnhCategoria||'—'}</span></div>
-        <div class="ficha-item"><label>Anexo</label><span>${m.cnhFileUrl ? `<a href="${m.cnhFileUrl}" target="_blank" style="color:var(--gold2)">📎 Abrir no Drive</a>` : 'Não anexado'}</span></div>
+        <div class="ficha-item"><label>Anexo</label><span>${m.cnhFileUrl ? '<a href="'+m.cnhFileUrl+'" target="_blank" style="color:var(--gold2)">📎 Abrir no Drive</a>' : 'Não anexado'}</span></div>
       </div>
     </div>
     <div class="ficha-section"><div class="ficha-section-title">Registro</div>
@@ -655,7 +649,7 @@ function openFicha(saram){
   document.getElementById('fichaModal').classList.add('open');
 }
 function closeModal(){ document.getElementById('fichaModal').classList.remove('open'); }
-function formatDate(d){ if(!d) return '—'; try{ return new Date(d+'T00:00').toLocaleDateString('pt-BR'); }catch{return d;} }
+function formatDate(d){ if(!d) return '—'; try{ return new Date(d+'T00:00').toLocaleDateString('pt-BR'); }catch(e){return d;} }
 
 async function deleteMil(saram){
   if (!confirm('Excluir este registro? Ação irreversível.')) return;
@@ -671,7 +665,6 @@ async function deleteMil(saram){
   finally { hideLoading(); }
 }
 
-/* ────────── CHARTS ────────── */
 function drawCharts(){
   Chart.defaults.color = '#7a8daa';
   Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
@@ -703,7 +696,6 @@ function drawCharts(){
   }
 }
 
-/* ────────── MILITARY PAGES ────────── */
 function renderFichaPropria(){
   const m = DB.currentUser;
   if (!m || !m.nomeCompleto) return `
@@ -757,7 +749,6 @@ function renderFichaPropria(){
     </div>`;
 }
 
-/* ────────── CADASTRO FORM ────────── */
 function renderCadastroForm(){
   return `
   <div class="page-title">Formulário de Cadastro</div>
@@ -963,7 +954,7 @@ async function submitCadastro(){
       cep: v('f_cep'), telefone: v('f_tel'),
       emergNome: v('f_enom'), emergTel: v('f_etel'), emergParent: v('f_epar'),
       cnhCategoria: v('f_cnh'), senha: v('f_senha'),
-      cnhFile
+      cnhFile: cnhFile
     };
     showLoading('Salvando na planilha…');
     const r = await callAPI(payload);
@@ -1005,7 +996,6 @@ function prefillForm(){
   });
 }
 
-/* MASKS */
 document.addEventListener('input',function(e){
   const id = e.target.id;
   if (id==='f_cpf'){
@@ -1030,3 +1020,4 @@ document.getElementById('fichaModal').addEventListener('click', function(e){ if 
 </script>
 </body>
 </html>
+
